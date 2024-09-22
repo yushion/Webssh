@@ -1,3 +1,9 @@
+# Koyeb 部署：
+[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?name=webssh&type=git&repository=yushion%2FWebssh&branch=master&builder=buildpack&run_command=python+run.py+--xsrf%3DFalse+--xheaders%3DFalse+--origin%3D%27*%27+--debug+--delay%3D20&env%5B%5D=&ports=8888%3Bhttp%3B%2F)
+
+<details>
+    <summary>原项目readme (点击展开)</summary>
+  
 ## WebSSH
 
 [![python](https://github.com/huashengdun/webssh/actions/workflows/python.yml/badge.svg)](https://github.com/huashengdun/webssh/actions/workflows/python.yml)
@@ -210,3 +216,5 @@ wssh --port=8080 --sslport=4433 --certfile='cert.crt' --keyfile='cert.key' --xhe
 * For whatever deployment choice you choose, don't forget to enable SSL.
 * By default plain http requests from a public network will be either redirected or blocked and being redirected takes precedence over being blocked.
 * Try to use reject policy as the missing host key policy along with your verified known_hosts, this will prevent man-in-the-middle attacks. The idea is that it checks the system host keys file("~/.ssh/known_hosts") and the application host keys file("./known_hosts") in order, if the ssh server's hostname is not found or the key is not matched, the connection will be aborted.
+
+</details>
