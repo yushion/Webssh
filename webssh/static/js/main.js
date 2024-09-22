@@ -55,7 +55,7 @@ function updateSSHlink() {
     var initcommandstrAfterURI = encodeURIComponent(initcommandstr);
 
     var sshlinkstr;
-    sshlinkstr = thisPageProtocol+"//"+thisPageUrl+"/?hostname="+hostnamestr+"&port="+portstr+"&username="+usrnamestr+"&password="+passwdstrAfterBase64+"&command="+initcommandstrAfterURI;
+    sshlinkstr = thisPageProtocol+"//"+thisPageUrl+"/?hostname="+hostnamestr+"&port="+portstr+"&username="+usrnamestr+"&password="+passwdstrAfterBase64+"&initcommand="+initcommandstrAfterURI;
 
     document.getElementById("sshlink").innerHTML = sshlinkstr;
 }
@@ -82,7 +82,7 @@ jQuery(function($){
       key_max_size = 16384,
       fields = ['hostname', 'port', 'username'],
       form_keys = fields.concat(['password', 'totp']),
-      opts_keys = ['bgcolor', 'title', 'encoding', 'command', 'term', 'fontsize', 'fontcolor', 'cursor'],
+      opts_keys = ['bgcolor', 'title', 'encoding', 'initcommand', 'term', 'fontsize', 'fontcolor', 'cursor'],
       url_form_data = {},
       url_opts_data = {},
       validated_form_data,
@@ -559,9 +559,9 @@ jQuery(function($){
       term.focus();
       state = CONNECTED;
       title_element.text = url_opts_data.title || default_title;
-      if (url_opts_data.command) {
+      if (url_opts_data.initcommand) {
         setTimeout(function () {
-          sock.send(JSON.stringify({'data': url_opts_data.command+'\r'}));
+          sock.send(JSON.stringify({'data': url_opts_data.initcommand+'\r'}));
         }, 500);
       }
     };
