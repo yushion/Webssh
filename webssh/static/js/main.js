@@ -38,25 +38,14 @@ document.querySelector('#sshlinkBtn').addEventListener("click", updateSSHlink);
 function updateSSHlink() {
     var thisPageProtocol = window.location.protocol;
     var thisPageUrl = window.location.host;
-
     var hostnamestr = document.getElementById("hostname").value;
-    var portstr = document.getElementById("port").value;
-    if (portstr == "") {
-        portstr = "22"
-    }
-    var usrnamestr = document.getElementById("username").value;
-    if (usrnamestr == "") {
-      portstr = "root"
-    }
+    var portstr = document.getElementById("port").value || "22";
+    var usrnamestr = document.getElementById("username").value || "root";
     var passwdstr = document.getElementById("password").value;
-    var passwdstrAfterBase64 = window.btoa(passwdstr);
-
+    var passwdstrAfterBase64 = window.btoa(passwdstr); // Base64 加密密码
     var commandstr = document.getElementById("command").value;
-    var commandstrAfterURI = encodeURIComponent(commandstr);
-
-    var sshlinkstr;
-    sshlinkstr = thisPageProtocol+"//"+thisPageUrl+"/?hostname="+hostnamestr+"&port="+portstr+"&username="+usrnamestr+"&password="+passwdstrAfterBase64+"&command="+commandstrAfterURI;
-
+    var commandstrAfterURI = encodeURIComponent(commandstr); // 对命令进行 URI 编码
+    var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${commandstrAfterURI}`;
     document.getElementById("sshlink").innerHTML = sshlinkstr;
 }
 
@@ -79,7 +68,7 @@ jQuery(function($){
       state = DISCONNECTED,
       messages = {1: 'This client is connecting ...', 2: 'This client is already connnected.'},
       key_max_size = 16384,
-      fields = ['hostname', 'port', 'username'],
+      fields = ['hostname', 'port', 'username', 'command'],
       form_keys = fields.concat(['password', 'totp']),
       opts_keys = ['bgcolor', 'title', 'encoding', 'command', 'term', 'fontsize', 'fontcolor', 'cursor'],
       url_form_data = {},
