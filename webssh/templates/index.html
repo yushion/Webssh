@@ -239,6 +239,7 @@
             <input class="form-control" type="text" id="command" name="command" value="">
           </div>
         </div>
+        <div id="status" style="color: red;">No existing session</div>
         <input type="hidden" id="term" name="term" value="xterm-256color">
         {% module xsrf_form_html() %}
         <div class="button-group">
@@ -256,10 +257,10 @@
           </div>
         </div>
       </form>
+      <div id="status" style="color: red;"></div>
       <div style="text-align: center; font-size: small; padding-top: 20px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
     </div>
     <div class="container">
-      <div id="status" style="color: red;"></div>
       <div id="terminal"></div>
     </div>
     <script>
