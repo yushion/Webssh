@@ -8,38 +8,203 @@
     <link href="static/css/xterm.min.css" rel="stylesheet" type="text/css"/>
     <link href="static/css/fullscreen.min.css" rel="stylesheet" type="text/css"/>
     <style>
-      .row {
-        margin-top: 15px;
-        margin-bottom: 10px;
-      }
-
-      .container {
-        margin-top: 20px;
-      }
-
-      .btn {
-        margin-top: 15px;
-      }
-
-      .btn-danger {
-        margin-left: 5px;
-      }
-      {% if font.family %}
-      @font-face {
-        font-family: '{{ font.family }}';
-        src: url('{{ font.url }}');
-      }
-
       body {
-        font-family: '{{ font.family }}';
+          font-family: 'Arial', sans-serif; /* 使用更现代的字体 */
+          background-color: #d5d6d8; /* 轻微的背景色 */
+          color: #333; /* 更深的文字颜色 */
+          font-size: 15px;
       }
-      {% end %}
+           
+      /* 针对 form-container 的样式 */
+      .form-container {
+          max-width: 900px; /* 控制容器的最大宽度 */
+          margin: 50px auto; /* 增加上下边距，居中显示 */
+          padding: 20px;
+          background-color: #fff; /* 白色背景 */
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+          border-radius: 8px; /* 圆角 */
+      }
+      
+      .form-container .row {
+          margin-top: 20px; /* 增加行间距 */
+          margin-bottom: 20px;
+      }
+      
+      .form-container .form-label {
+          font-weight: bold; /* 加粗标签文字 */
+      }
+      
+      .form-container .btn {
+          margin-top: 20px; /* 增加按钮间距 */
+      }
+      
+      .form-container .btn-primary,
+      .form-container .btn-danger,
+      .form-container .btn-info {
+          border-radius: 8px; /* 按钮圆角 */
+      }
+      
+      .form-container .btn-primary {
+          background-color: #007bff; /* 主按钮颜色 */
+          border-color: #007bff;
+      }
+      
+      .form-container .btn-danger {
+          background-color: #dc3545; /* 删除按钮颜色 */
+          border-color: #dc3545;
+          margin-left: 10px; /* 增加左侧间距 */
+      }
+      
+      .form-container .btn-info {
+          background-color: #17a2b8; /* 信息按钮颜色 */
+          border-color: #17a2b8;
+      }
+      
+      .form-container #waiter {
+          text-align: center; /* 居中文本 */
+          font-size: 1.2em; /* 增大字号 */
+          font-weight: bold; /* 加粗字体 */
+      }
+      
+      .form-container #status {
+          margin-top: 20px; /* 增加状态消息的上边距 */
+          text-align: center; /* 居中文本 */
+          font-size: 1.1em; /* 增大字号 */
+      }
+      
+      .form-container a {
+          color: #007bff; /* 链接颜色 */
+          text-decoration: none; /* 移除下划线 */
+      }
+      
+      .form-container a:hover {
+          text-decoration: underline; /* 鼠标悬停时显示下划线 */
+      }
+      
+      /* 新增的按钮组样式 */
+      .form-container .button-group {
+          display: flex;
+          justify-content: center; /* 水平居中 */
+          gap: 10px; /* 按钮之间的间距 */
+          margin-top: 20px; /* 增加顶部间距 */
+      }
+      /* 代码框样式 */
+      .code-block {
+          position: relative;
+          background-color: #2d2d2d;
+          color: #ffffff;
+          border-radius: 8px;
+          overflow: hidden;
+          margin-top: 20px;
+      }
+      
+      .header {
+          background-color: #444444;
+          padding: 5px 10px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+      
+      .header-title {
+          font-size: 14px;
+          color: #ffffff;
+      }
+      
+      .code-text {
+          padding: 10px;
+          margin: 0;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #cdebba; /* 字体颜色改为白色 */
+          text-align: left; /* 左对齐文本 */
+      }
+      
+      .copy-button {
+          background-color: #6a6a6a;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 12px;
+          transition: background-color 0.3s;
+      }
+      
+      .copy-button:hover {
+          background-color: #4a4a4a;
+      }
+      
+      /* 自定义文件输入样式 */
+      input[type="file"]::file-selector-button {
+          background-color: #007bff;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+      }
+      
+      input[type="file"]::file-selector-button:hover {
+          background-color: #0056b3;
+      }
+      
+      /* 针对 WebKit 浏览器的样式 */
+      input[type="file"]::-webkit-file-upload-button {
+          background-color: #5b5d5f;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+          float: right;
+          margin-top: -5px;
+          margin-right: -8px;
+      }
+      
+      input[type="file"]::-webkit-file-upload-button:hover {
+          background-color: #0056b3;
+      }
+      
+      /* 针对 Firefox 浏览器的样式 */
+      input[type="file"]::-moz-file {
+          background-color: #5b5d5f;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+          float: right;
+          margin-top: -3px;
+          margin-right: -8px;
+      }
+      
+      input[type="file"]::-moz-file:hover {
+          background-color: #0056b3;
+      }
+      
+      /* 修改文件输入框内部文字大小 */
+      input[type="file"] {
+          font-size: 14px; /* 调整为所需的文字大小 */
+          padding-top: 8px;
+          height :  calc(1.5em + .75rem + 6px);
+      }
     </style>
   </head>
   <body>
     <div id="waiter" style="display: none"> Connecting ... </div>
-
     <div class="container form-container" style="display: none">
+      <h1 style="text-align: center; margin: 0;">WebSSH</h1>
       <form id="connect" action="" method="post" enctype="multipart/form-data"{% if debug %} novalidate{% end %}>
         <div class="row">
           <div class="col">
@@ -83,20 +248,38 @@
         </div>
         <input type="hidden" id="term" name="term" value="xterm-256color">
         {% module xsrf_form_html() %}
-        <button type="submit" class="btn btn-primary">Connect</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
-        <button type="button" class="btn btn-info" id="sshlinkBtn">SSH Link</button>
-        <div id="sshlink"></div>
-        <p></p>
-        <div>Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
+        <!-- 按钮部分 -->
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Connect</button>
+          <button type="reset" class="btn btn-danger">Reset</button>
+          <button type="button" class="btn btn-info" id="sshlinkBtn">SSH Link</button>
+        </div>
+        <!-- 新增的SSH链接代码框 -->
+        <div id="sshlinkBox" style="margin-top: 20px;display: none;">
+          <div class="code-block">
+            <div class="header">
+              <span class="header-title">SSHLink</span>
+              <button id="copyButton" class="copy-button" title="Copy to clipboard">Copy</button>
+            </div>
+            <pre id="sshlink" class="code-text"></pre>
+          </div>
+        </div>
       </form>
+      <div style="text-align: center; font-size: small; margin-top: 30px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a>
     </div>
 
     <div class="container">
       <div id="status" style="color: red;"></div>
       <div id="terminal"></div>
     </div>
-
+    <script>
+      // 复制文本
+      document.getElementById('copyButton').addEventListener('click', function(event) {
+        event.preventDefault(); // 阻止默认行为
+        var copyText = document.getElementById("sshlink").innerText;
+        navigator.clipboard.writeText(copyText);
+      });
+    </script>
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/popper.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
