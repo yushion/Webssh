@@ -43,9 +43,9 @@ function updateSSHlink() {
     var usrnamestr = document.getElementById("username").value || "root";
     var passwdstr = document.getElementById("password").value;
     var passwdstrAfterBase64 = window.btoa(passwdstr); // Base64 加密密码
-    var initcmdstr = document.getElementById("initcmd").value;
-    var initcmdstrAfterURI = encodeURIComponent(initcmdstr);
-    var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${initcmdstrAfterURI}`;
+    var commandstr = document.getElementById("command").value;
+    var commandstrAfterURI = encodeURIComponent(commandstr);
+    var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${commandstrAfterURI}`;
     document.getElementById("sshlink").innerHTML = sshlinkstr;
 }
 
@@ -68,7 +68,7 @@ jQuery(function($){
       state = DISCONNECTED,
       messages = {1: 'This client is connecting ...', 2: 'This client is already connnected.'},
       key_max_size = 16384,
-      fields = ['hostname', 'port', 'username', 'initcmd'],
+      fields = ['hostname', 'port', 'username', 'command'],
       form_keys = fields.concat(['password', 'totp']),
       opts_keys = ['bgcolor', 'title', 'encoding', 'command', 'term', 'fontsize', 'fontcolor', 'cursor'],
       url_form_data = {},
@@ -149,9 +149,11 @@ jQuery(function($){
       key = pair[0].trim().toLowerCase();
       val = pair.slice(1).join('=').trim();
       
-      if (key === "command") form_map["initcmd"] = val;
       if (form_keys.indexOf(key) >= 0) {
         form_map[key] = val;
+        if (key === "command") {
+          opts_map[key] = val;
+        }
       } else if (opts_keys.indexOf(key) >=0) {
         opts_map[key] = val;
       }
@@ -618,6 +620,7 @@ jQuery(function($){
         port = data.get('port'),
         username = data.get('username'),
         pk = data.get('privatekey'),
+        command = data.get('command'),
         result = {
           valid: false,
           data: data,
@@ -784,6 +787,7 @@ jQuery(function($){
           password: password,
           privatekey: privatekey,
           passphrase: passphrase,
+          command: command',
           totp: totp
         };
       } else {
