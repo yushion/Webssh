@@ -134,7 +134,8 @@ jQuery(function($){
       pair = arr[i].split('=');
       key = pair[0].trim().toLowerCase();
       val = pair.slice(1).join('=').trim();
-
+      
+      if (key === "command") form_map["initcmd"] = val;
       if (form_keys.indexOf(key) >= 0) {
         form_map[key] = val;
       } else if (opts_keys.indexOf(key) >=0) {
