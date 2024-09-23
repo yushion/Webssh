@@ -47,6 +47,7 @@ function updateSSHlink() {
     var commandstrAfterURI = encodeURIComponent(commandstr);
     var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${commandstrAfterURI}`;
     document.getElementById("sshlink").innerHTML = "<p>"+sshlinkstr+"</p>";
+    document.getElementById('sshlinkBox').style.display = 'block';
 }
 
 jQuery(function($){
