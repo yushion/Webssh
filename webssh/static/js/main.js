@@ -787,7 +787,7 @@ jQuery(function($){
           password: password,
           privatekey: privatekey,
           passphrase: passphrase,
-          command: command',
+          command: command,
           totp: totp
         };
       } else {
