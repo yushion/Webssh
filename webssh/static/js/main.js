@@ -43,9 +43,9 @@ function updateSSHlink() {
     var usrnamestr = document.getElementById("username").value || "root";
     var passwdstr = document.getElementById("password").value;
     var passwdstrAfterBase64 = window.btoa(passwdstr); // Base64 加密密码
-    var commandstr = document.getElementById("command").value;
-    var commandstrAfterURI = encodeURIComponent(commandstr); // 对命令进行 URI 编码
-    var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${commandstrAfterURI}`;
+    var initcmdstr = document.getElementById("initcmd").value;
+    var initcmdstrAfterURI = encodeURIComponent(initcmdstr);
+    var sshlinkstr = `${thisPageProtocol}//${thisPageUrl}/?hostname=${hostnamestr}&port=${portstr}&username=${usrnamestr}&password=${passwdstrAfterBase64}&command=${initcmdstrAfterURI}`;
     document.getElementById("sshlink").innerHTML = sshlinkstr;
 }
 
@@ -68,7 +68,7 @@ jQuery(function($){
       state = DISCONNECTED,
       messages = {1: 'This client is connecting ...', 2: 'This client is already connnected.'},
       key_max_size = 16384,
-      fields = ['hostname', 'port', 'username', 'command'],
+      fields = ['hostname', 'port', 'username', 'initcmd'],
       form_keys = fields.concat(['password', 'totp']),
       opts_keys = ['bgcolor', 'title', 'encoding', 'command', 'term', 'fontsize', 'fontcolor', 'cursor'],
       url_form_data = {},
