@@ -32,7 +32,7 @@ var wssh = {};
       data[name] = value;
     };
   }
-  document.querySelector('#sshlinkBtn').addEventListener("click", updateSSHlink);
+document.querySelector('#sshlinkBtn').addEventListener("click", updateSSHlink);
 }());
 
 function updateSSHlink() {
@@ -51,15 +51,14 @@ function updateSSHlink() {
     var passwdstr = document.getElementById("password").value;
     var passwdstrAfterBase64 = window.btoa(passwdstr);
 
-    var initcommandstr = document.getElementById("initcommand").value;
-    var initcommandstrAfterURI = encodeURIComponent(initcommandstr);
+    var commandstr = document.getElementById("command").value;
+    var commandstrAfterURI = encodeURIComponent(commandstr);
 
     var sshlinkstr;
-    sshlinkstr = thisPageProtocol+"//"+thisPageUrl+"/?hostname="+hostnamestr+"&port="+portstr+"&username="+usrnamestr+"&password="+passwdstrAfterBase64+"&initcommand="+initcommandstrAfterURI;
+    sshlinkstr = thisPageProtocol+"//"+thisPageUrl+"/?hostname="+hostnamestr+"&port="+portstr+"&username="+usrnamestr+"&password="+passwdstrAfterBase64+"&command="+commandstrAfterURI;
 
     document.getElementById("sshlink").innerHTML = sshlinkstr;
 }
-
 
 jQuery(function($){
   var status = $('#status'),
@@ -82,7 +81,7 @@ jQuery(function($){
       key_max_size = 16384,
       fields = ['hostname', 'port', 'username'],
       form_keys = fields.concat(['password', 'totp']),
-      opts_keys = ['bgcolor', 'title', 'encoding', 'initcommand', 'term', 'fontsize', 'fontcolor', 'cursor'],
+      opts_keys = ['bgcolor', 'title', 'encoding', 'command', 'term', 'fontsize', 'fontcolor', 'cursor'],
       url_form_data = {},
       url_opts_data = {},
       validated_form_data,
@@ -559,9 +558,9 @@ jQuery(function($){
       term.focus();
       state = CONNECTED;
       title_element.text = url_opts_data.title || default_title;
-      if (url_opts_data.initcommand) {
+      if (url_opts_data.command) {
         setTimeout(function () {
-          sock.send(JSON.stringify({'data': url_opts_data.initcommand+'\r'}));
+          sock.send(JSON.stringify({'data': url_opts_data.command+'\r'}));
         }, 500);
       }
     };
