@@ -59,12 +59,6 @@
           border-color: #17a2b8;
       }
       
-      .form-container #waiter {
-          text-align: center;
-          font-size: 1.2em;
-          font-weight: bold;
-      }
-      
       .form-container a {
           color: #007bff;
           text-decoration: none; 
@@ -211,10 +205,41 @@
       visibility: visible;
       z-index:3;
     }
+      
+    .loadingparent-container {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  display: none;
+		  justify-content: center;
+		  align-items: center;
+		  background: rgba(255, 255, 255, 0.7);
+		  z-index: 2;
+		}
+		.loading-container {
+		  position: relative;
+		  width: 50px;
+		  height: 50px;
+		}
+		.loading-spinner {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border: 4px solid rgba(0, 0, 0, 0.1);
+			border-radius: 50%;
+			border-top: 4px solid #666666;
+			animation: spin 1.5s linear infinite;
+		}
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
     </style>
   </head>
   <body>
-    <div id="waiter" style="display: none"> Connecting ... </div>
+    <div class="loadingparent-container" id="loading"><div class="loading-container"><div class="loading-spinner"></div></div></div>
 
     <div class="container form-container" style="display: none">
       <h1 style="text-align: center; margin: 0;">WebSSH</h1>
