@@ -52,8 +52,7 @@ function updateSSHlink() {
 
 jQuery(function($){
   var button = $('.btn-primary'),
-      form_container = $('.form-container'),
-      waiter = $('#waiter'),
+      loading = $('#loading'),
       term_type = $('#term'),
       style = {},
       default_title = 'WebSSH',
@@ -341,6 +340,9 @@ jQuery(function($){
 
 
   function log_status(text, to_populate) {
+    if (loading.css('display') !== 'none') {
+      loading.hide();
+    }
     console.log(text);
     showError(text.split('\n').join('<br/>')); 
 
@@ -348,17 +350,7 @@ jQuery(function($){
       populate_form(validated_form_data);
       validated_form_data = undefined;
     }
-
-    if (waiter.css('display') !== 'none') {
-      waiter.hide();
-    }
-
-    if (form_container.css('display') === 'none') {
-      form_container.show();
-    }
   }
-
-
   function ajax_complete_callback(resp) {
     button.prop('disabled', false);
 
@@ -865,11 +857,10 @@ jQuery(function($){
     log_status('Password via url must be encoded in base64.');
   } else {
     if (get_object_length(url_form_data)) {
-      waiter.show();
+      loading.show();
       connect(url_form_data);
     } else {
       restore_items(fields);
-      form_container.show();
     }
   }
 
