@@ -763,6 +763,13 @@ jQuery(function($){
 
   function connect(hostname, port, username, password, privatekey, passphrase, totp) {
     loading.show();
+    setTimeout(function() {
+      loading.css({
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center'
+      });
+    }, 0);
     // for console use
     var result, opts;
 
