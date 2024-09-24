@@ -189,6 +189,34 @@
           padding-top: 8px;
           height :  calc(1.5em + .75rem + 6px);
       }
+      .error-box {
+      max-width: 60%;
+      width: 400px;
+      background-color: #ff5100; /* Gray color for error */
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 16px;
+      position: fixed;
+      top: 64%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-block;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      font-weight: bold;
+      z-index:3;
+      box-shadow: 2px 2px 2px 2px #dbdada;
+    }
+
+    .error-box.show {
+      opacity: 1;
+      visibility: visible;
+      z-index:3;
+    }
     </style>
   </head>
   <body>
@@ -259,15 +287,25 @@
       </form>
       <div id="status" style="color: red;"></div>
       <div style="text-align: center; font-size: small; padding-top: 20px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
+      <div id='errorBox' class='error-box hidden'></div>
     </div>
     <div class="container">
       <div id="terminal"></div>
     </div>
     <script>
+      function showError(message) {
+        const errorBox = document.getElementById('errorBox');
+        errorBox.textContent = message;
+        errorBox.classList.add('show');
+        setTimeout(() => {
+            errorBox.classList.remove('show');
+        }, 3000);
+      }
       document.getElementById('copyButton').addEventListener('click', function(event) {
         event.preventDefault();
         var copyText = document.getElementById("sshlink").innerText;
         navigator.clipboard.writeText(copyText);
+        showError('Copy completed!'); 
       });
     </script>
     <script src="static/js/jquery.min.js"></script>
