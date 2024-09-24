@@ -758,6 +758,7 @@ jQuery(function($){
 
 
   function connect(hostname, port, username, password, privatekey, passphrase, totp) {
+    loading.show();
     // for console use
     var result, opts;
 
@@ -857,7 +858,6 @@ jQuery(function($){
     log_status('Password via url must be encoded in base64.');
   } else {
     if (get_object_length(url_form_data)) {
-      loading.show();
       connect(url_form_data);
     } else {
       restore_items(fields);
