@@ -692,7 +692,7 @@ jQuery(function($){
     
     var commandstr = document.getElementById("command").value;
     if (commandstr) {
-      url_opts_data["command"] = commandstr;
+      url_opts_data.command = commandstr;
     }
     function ajax_post() {
       button.prop('disabled', true);
