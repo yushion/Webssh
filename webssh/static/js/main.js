@@ -51,8 +51,7 @@ function updateSSHlink() {
 }
 
 jQuery(function($){
-  var status = $('#status'),
-      button = $('.btn-primary'),
+  var button = $('.btn-primary'),
       form_container = $('.form-container'),
       waiter = $('#waiter'),
       term_type = $('#term'),
@@ -343,7 +342,7 @@ jQuery(function($){
 
   function log_status(text, to_populate) {
     console.log(text);
-    status.html(text.split('\n').join('<br/>'));
+    showError(text.split('\n').join('<br/>')); 
 
     if (to_populate && validated_form_data) {
       populate_form(validated_form_data);
@@ -700,7 +699,6 @@ jQuery(function($){
     enable_file_inputs(inputs);
 
     function ajax_post() {
-      status.text('');
       button.prop('disabled', true);
 
       $.ajax({
@@ -754,7 +752,6 @@ jQuery(function($){
       data._origin = event_origin;
     }
 
-    status.text('');
     button.prop('disabled', true);
 
     $.ajax({
