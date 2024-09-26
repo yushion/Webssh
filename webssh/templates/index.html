@@ -268,42 +268,42 @@
       <form id="connect" action="" method="post" enctype="multipart/form-data"{% if debug %} novalidate{% end %}>
         <div class="row">
           <div class="col">
-            <label for="Hostname">Hostname:</label>
+            <label class="form-label" for="Hostname">Hostname:</label>
             <input class="form-control" type="text" id="hostname" name="hostname" value="" required>
           </div>
           <div class="col">
-            <label for="Port">Port:</label>
+            <label class="form-label" for="Port">Port:</label>
             <input class="form-control" type="number" id="port" name="port" placeholder="22" value="" min=1 max=65535>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label for="Username">Username:</label>
+            <label class="form-label" for="Username">Username:</label>
             <input class="form-control" type="text" id="username" name="username" value="" required>
           </div>
           <div class="col">
-            <label for="Password">Password:</label>
+            <label class="form-label" for="Password">Password:</label>
             <input class="form-control" type="password" id="password" name="password" value="">
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label for="Username">Private Key:</label>
+            <label class="form-label" for="Username">Private Key:</label>
             <input class="form-control" type="file" id="privatekey" name="privatekey" value="">
           </div>
           <div class="col">
-            <label for="Passphrase">Passphrase:</label>
+            <label class="form-label" for="Passphrase">Passphrase:</label>
             <input class="form-control" type="password" id="passphrase" name="passphrase" value="">
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label for="totp">Totp:<span style="font-size: small;">(time-based one-time password)</span>
+            <label class="form-label" for="totp">Totp:<span style="font-size: small;">(time-based one-time password)</span>
             </label>
             <input class="form-control" type="password" id="totp" name="totp" value="">
           </div>
           <div class="col">
-            <label for="InitCommand">InitCommand:<span style="font-size: small;">(execute the command after login)</span>
+            <label class="form-label" for="InitCommand">InitCommand:<span style="font-size: small;">(execute the command after login)</span>
             </label>
             <input class="form-control" type="text" id="command" name="command" value="">
           </div>
