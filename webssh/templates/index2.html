@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title> WebSSH </title>
+    <link href="static/img/favicon.png" rel="icon" type="image/png">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/xterm.min.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/fullscreen.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+      body {
+          font-family: 'Arial', sans-serif;
+          background-color: #bbebe7;
+          color: #333;
+          font-size: 15px;
+      }
+      html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+      .form-container {
+          max-width: 60%;
+          margin: 100px auto;
+          padding: 50px;
+          padding-bottom :  10px;
+          background-color: #fff;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+      }
+      
+      .form-container .row {
+          margin-top: 20px;
+          margin-bottom: 20px;
+      }
+      
+      .form-container .form-label {
+          font-weight: bold;
+      }
+      
+      .form-container .btn {
+          margin-top: 20px;
+      }
+      
+      .form-container .btn-primary,
+      .form-container .btn-danger,
+      .form-container .btn-info {
+          border-radius: 8px;
+      }
+      
+      .form-container .btn-primary {
+          background-color: #007bff;
+          border-color: #007bff;
+      }
+      
+      .form-container .btn-danger {
+          background-color: #dc3545;
+          border-color: #dc3545;
+          margin-left: 10px;
+      }
+      
+      .form-container .btn-info {
+          background-color: #17a2b8;
+          border-color: #17a2b8;
+      }
+      
+      .form-container a {
+          color: #007bff;
+          text-decoration: none; 
+      }
+      
+      .form-container a:hover {
+          text-decoration: underline;
+      }
+      
+      .form-container .button-group {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 20px;
+      }
+
+      .code-block {
+          position: relative;
+          background-color: #2d2d2d;
+          color: #ffffff;
+          border-radius: 8px;
+          overflow: hidden;
+          margin-top: 30px;
+      }
+      
+      .header {
+          background-color: #444444;
+          padding: 5px 10px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+      
+      .header-title {
+          font-size: 14px;
+          color: #ffffff;
+      }
+      
+      .code-text {
+          padding: 10px;
+          margin: 0;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #cdebba;
+          text-align: left;
+      }
+      
+      .copy-button {
+          background-color: #6a6a6a;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 12px;
+          transition: background-color 0.3s;
+      }
+      
+      .copy-button:hover {
+          background-color: #4a4a4a;
+      }
+      input[type="file"]::file-selector-button {
+          background-color: #007bff;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+      }
+      
+      input[type="file"]::file-selector-button:hover {
+          background-color: #0056b3;
+      }
+      input[type="file"]::-webkit-file-upload-button {
+          background-color: #5b5d5f;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+          float: right;
+          margin-top: -5px;
+          margin-right: -8px;
+      }
+      
+      input[type="file"]::-webkit-file-upload-button:hover {
+          background-color: #0056b3;
+      }
+      input[type="file"]::-moz-file {
+          background-color: #5b5d5f;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background-color 0.3s;
+          float: right;
+          margin-top: -3px;
+          margin-right: -8px;
+      }
+      
+      input[type="file"]::-moz-file:hover {
+          background-color: #0056b3;
+      }
+      input[type="file"] {
+          font-size: 14px;
+          padding-top: 8px;
+          height :  calc(1.5em + .75rem + 6px);
+      }
+      .error-box {
+        max-width: 60%;
+        width: 400px;
+        background-color: #ff5100; /* Gray color for error */
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 16px;
+        position: fixed;
+        top: 64%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        font-weight: bold;
+        z-index:3;
+        box-shadow: 2px 2px 2px 2px #dbdada;
+      }
+  
+      .error-box.show {
+        opacity: 1;
+        visibility: visible;
+        z-index:3;
+      }
+        
+      .loadingparent-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        z-index: 2;
+      }
+      .loading-container {
+        position: relative;
+        width: 50px;
+        height: 50px;
+      }
+      .loading-spinner {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top: 4px solid #666666;
+        animation: spin 1.5s linear infinite;
+      }
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loadingparent-container" id="loading"><div class="loading-container"><div class="loading-spinner"></div></div></div>
+
+    <div class="container form-container">
+      <h1 style="text-align: center; margin: 0;">WebSSH</h1>
+      <form id="connect" action="" method="post" enctype="multipart/form-data"{% if debug %} novalidate{% end %}>
+        <div class="row">
+          <div class="col">
+            <label for="Hostname">Hostname:</label>
+            <input class="form-control" type="text" id="hostname" name="hostname" value="" required>
+          </div>
+          <div class="col">
+            <label for="Port">Port:</label>
+            <input class="form-control" type="number" id="port" name="port" placeholder="22" value="" min=1 max=65535>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Username">Username:</label>
+            <input class="form-control" type="text" id="username" name="username" value="" required>
+          </div>
+          <div class="col">
+            <label for="Password">Password:</label>
+            <input class="form-control" type="password" id="password" name="password" value="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Username">Private Key:</label>
+            <input class="form-control" type="file" id="privatekey" name="privatekey" value="">
+          </div>
+          <div class="col">
+            <label for="Passphrase">Passphrase:</label>
+            <input class="form-control" type="password" id="passphrase" name="passphrase" value="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="totp">Totp:<span style="font-size: small;">(time-based one-time password)</span>
+            </label>
+            <input class="form-control" type="password" id="totp" name="totp" value="">
+          </div>
+          <div class="col">
+            <label for="InitCommand">InitCommand:<span style="font-size: small;">(execute the command after login)</span>
+            </label>
+            <input class="form-control" type="text" id="command" name="command" value="">
+          </div>
+        </div>
+        <input type="hidden" id="term" name="term" value="xterm-256color">
+        {% module xsrf_form_html() %}
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Connect</button>
+          <button type="reset" class="btn btn-danger">Reset</button>
+          <button type="button" class="btn btn-info" id="sshlinkBtn">SSH Link</button>
+        </div>
+        <div id="sshlinkBox" style="margin-top: 20px;display: none;">
+          <div class="code-block">
+            <div class="header">
+              <span class="header-title">SSHLink</span>
+              <button id="copyButton" class="copy-button" title="Copy to clipboard">Copy</button>
+            </div>
+            <pre id="sshlink" class="code-text"></pre>
+          </div>
+        </div>
+      </form>
+      <div style="text-align: center; font-size: small; padding-top: 20px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
+      <div id='errorBox' class='error-box hidden'></div>
+    </div>
+    <div class="container">
+      <div id="terminal"></div>
+    </div>
+    <script>
+      function showError(message) {
+        const errorBox = document.getElementById('errorBox');
+        errorBox.textContent = message;
+        errorBox.classList.add('show');
+        setTimeout(() => {
+            errorBox.classList.remove('show');
+        }, 3000);
+      }
+      document.getElementById('copyButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        var copyText = document.getElementById("sshlink").innerText;
+        navigator.clipboard.writeText(copyText);
+        showError('Copy completed!'); 
+      });
+    </script>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/popper.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/xterm.min.js"></script>
+    <script src="static/js/xterm-addon-fit.min.js"></script>
+    <script src="static/js/main.js"></script>
+  </body>
+</html>
