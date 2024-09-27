@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title> WebSSH </title>
     <link href="static/img/favicon.png" rel="icon" type="image/png">
-    <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="static/css/xterm.min.css" rel="stylesheet" type="text/css"/>
-    <link href="static/css/fullscreen.min.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/xterm.min.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/fullscreen.min.css" rel="stylesheet" type="text/css" />
     <style>
       body {
       font-family: 'Arial', sans-serif;
@@ -146,12 +146,12 @@
       background-color: #4a4a4a;
       }
       .form-control{
-          border: 1px solid #e5e7eb;
-          border-radius: 6px;
-          font-size: 14px;
-          background-color: #f9fafb;
-          transition: all 0.3s ease;
-          box-sizing: border-box;
+	  border: 1px solid #e5e7eb;
+	  border-radius: 6px;
+	  font-size: 14px;
+	  background-color: #f9fafb;
+	  transition: all 0.3s ease;
+	  box-sizing: border-box;
       }
       input[type="file"]::file-selector-button {
       background-color: #007bff;
@@ -260,93 +260,98 @@
       100% { transform: rotate(360deg); }
       }
       </style>
-    </head>
-    <body>
-      <div class="loadingparent-container" id="loading"><div class="loading-container"><div class="loading-spinner"></div></div></div>
-      <div class="bodybox">
+  </head>
+  <body>
+    <div class="loadingparent-container" id="loading">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    <div class="bodybox">
       <div style="border-radius: 12px 12px 0 0;width:100%;text-align: center; margin:auto;padding-top:20px;padding-bottom:20px;background-color: #68c3bb;border-bottom: 1px solid #e5e7eb;font-size:40px;">WebSSH</div>
       <div class="container form-container">
-      <form id="connect" action="" method="post" enctype="multipart/form-data"{% if debug %} novalidate{% end %}>
-        <div class="row">
-          <div class="col">
-            <label class="form-label" for="Hostname">Hostname:</label>
-            <input class="form-control" type="text" id="hostname" name="hostname" value="" required>
-          </div>
-          <div class="col">
-            <label class="form-label" for="Port">Port:</label>
-            <input class="form-control" type="number" id="port" name="port" placeholder="22" value="" min=1 max=65535>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label class="form-label" for="Username">Username:</label>
-            <input class="form-control" type="text" id="username" name="username" value="" required>
-          </div>
-          <div class="col">
-            <label class="form-label" for="Password">Password:</label>
-            <input class="form-control" type="password" id="password" name="password" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label class="form-label" for="Username">Private Key:</label>
-            <input class="form-control" type="file" id="privatekey" name="privatekey" value="">
-          </div>
-          <div class="col">
-            <label class="form-label" for="Passphrase">Passphrase:</label>
-            <input class="form-control" type="password" id="passphrase" name="passphrase" value="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label class="form-label" for="totp">Totp:<span style="font-size: small;">(time-based one-time password)</span>
-            </label>
-            <input class="form-control" type="password" id="totp" name="totp" value="">
-          </div>
-          <div class="col">
-            <label class="form-label" for="InitCommand">InitCommand:<span style="font-size: small;">(execute the command after login)</span>
-            </label>
-            <input class="form-control" type="text" id="command" name="command" value="">
-          </div>
-        </div>
-        <input type="hidden" id="term" name="term" value="xterm-256color">
-        {% module xsrf_form_html() %}
-        <div class="button-group">
-          <button type="submit" class="btn btn-primary">Connect</button>
-          <button type="reset" class="btn btn-danger">Reset</button>
-          <button type="button" class="btn btn-info" id="sshlinkBtn">SSH Link</button>
-        </div>
-        <div id="sshlinkBox" style="margin-top: 20px;display: none;">
-          <div class="code-block">
-            <div class="header">
-              <span class="header-title">SSHLink</span>
-              <button id="copyButton" class="copy-button" title="Copy to clipboard">Copy</button>
+        <form id="connect" action="" method="post" enctype="multipart/form-data" {% if debug %} novalidate{% end %}>
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="Hostname">Hostname:</label>
+              <input class="form-control" type="text" id="hostname" name="hostname" value="" required>
             </div>
-            <pre id="sshlink" class="code-text"></pre>
+            <div class="col">
+              <label class="form-label" for="Port">Port:</label>
+              <input class="form-control" type="number" id="port" name="port" placeholder="22" value="" min=1 max=65535>
+            </div>
           </div>
-        </div>
-      </form>
-      <div style="text-align: center; font-size: small; padding-top: 20px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
-      <div id='errorBox' class='error-box hidden'></div>
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="Username">Username:</label>
+              <input class="form-control" type="text" id="username" name="username" value="" required>
+            </div>
+            <div class="col">
+              <label class="form-label" for="Password">Password:</label>
+              <input class="form-control" type="password" id="password" name="password" value="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="Username">Private Key:</label>
+              <input class="form-control" type="file" id="privatekey" name="privatekey" value="">
+            </div>
+            <div class="col">
+              <label class="form-label" for="Passphrase">Passphrase:</label>
+              <input class="form-control" type="password" id="passphrase" name="passphrase" value="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="form-label" for="totp">Totp:<span style="font-size: small;">(time-based one-time password)</span>
+              </label>
+              <input class="form-control" type="password" id="totp" name="totp" value="">
+            </div>
+            <div class="col">
+              <label class="form-label" for="InitCommand">InitCommand:<span style="font-size: small;">(execute the command after login)</span>
+              </label>
+              <input class="form-control" type="text" id="command" name="command" value="">
+            </div>
+          </div>
+          <input type="hidden" id="term" name="term" value="xterm-256color">
+          {% module xsrf_form_html() %}
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">Connect</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+            <button type="button" class="btn btn-info" id="sshlinkBtn">SSH Link</button>
+          </div>
+          <div id="sshlinkBox" style="margin-top: 20px;display: none;">
+            <div class="code-block">
+              <div class="header">
+                <span class="header-title">SSHLink</span>
+                <button id="copyButton" class="copy-button" title="Copy to clipboard">Copy</button>
+              </div>
+              <pre id="sshlink" class="code-text"></pre>
+            </div>
+          </div>
+        </form>
+        <div style="text-align: center; font-size: small; padding-top: 20px;">Github: <a href="https://github.com/yushion/Webssh">https://github.com/yushion/Webssh</a></div>
+        <div id='errorBox' class='error-box hidden'></div>
+      </div>
     </div>
     <div class="container">
       <div id="terminal"></div>
     </div>
     <script>
       function showError(message) {
-        const errorBox = document.getElementById('errorBox');
-        errorBox.textContent = message;
-        errorBox.classList.add('show');
-        setTimeout(() => {
-            errorBox.classList.remove('show');
-        }, 3000);
-      }
-      document.getElementById('copyButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        var copyText = document.getElementById("sshlink").innerText;
-        navigator.clipboard.writeText(copyText);
-        showError('Copy completed!'); 
-      });
+              const errorBox = document.getElementById('errorBox');
+              errorBox.textContent = message;
+              errorBox.classList.add('show');
+              setTimeout(() => {
+                  errorBox.classList.remove('show');
+              }, 3000);
+            }
+            document.getElementById('copyButton').addEventListener('click', function(event) {
+              event.preventDefault();
+              var copyText = document.getElementById("sshlink").innerText;
+              navigator.clipboard.writeText(copyText);
+              showError('Copy completed!'); 
+            });
     </script>
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/popper.min.js"></script>
