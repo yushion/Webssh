@@ -219,31 +219,31 @@
       height : calc(1.5em + .75rem + 6px);
       }
       .error-box {
-	    max-width: 100%;
-	    width: 400px;
-	    background-color: #ff5100; /* 错误颜色 */
-	    color: #fff;
-	    padding: 15px;
-	    border-radius: 5px;
-	    text-align: center;
-	    font-size: 16px;
-	    position: fixed;
-	    top: -100px; /* 初始位置在页面外 */
-	    left: 50%; /* 水平居中 */
-	    transform: translateX(-50%); /* 水平居中 */
-	    display: inline-block;
-	    opacity: 0;
-	    visibility: hidden;
-	    transition: top 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
-	    font-weight: bold;
-	    z-index: 3;
-	    box-shadow:0 10px 15px    rgba(0, 0, 0, 0.1), 0 1px 3px    rgba(0, 0, 0, 0.08);
-	}
-	.error-box.show {
-	    top: 20px; /* 显示时的位置 */
-	    opacity: 1;
-	    visibility: visible;
-	}
+      max-width: 100%;
+      width: 400px;
+      background-color: #ff5100;
+      color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+      opacity: 0;
+      visibility: hidden;
+      transition: top 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+      font-weight: bold;
+      z-index: 3;
+      box-shadow:0 10px 15px    rgba(0, 0, 0, 0.1), 0 1px 3px    rgba(0, 0, 0, 0.08);
+      }
+      .error-box.show {
+      top: 20px;
+      opacity: 1;
+      visibility: visible;
+      }
       .loadingparent-container {
       position: fixed;
       top: 0;
